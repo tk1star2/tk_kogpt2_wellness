@@ -1,0 +1,3 @@
+#python3 STEP1_data_generation.py
+python3 STEP2_train_kogpt2_wellness.py
+#python3 STEP3_generation_kogpt2.py
