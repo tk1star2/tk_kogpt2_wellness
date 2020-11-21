@@ -1,0 +1,5 @@
+lightning_logs/
+TK_data/Chatbot_data/
+TK_data/wellness_dialog_dataset/
+TK_checkpoint/
+todo.txt

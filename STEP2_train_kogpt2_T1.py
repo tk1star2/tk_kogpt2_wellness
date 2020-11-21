@@ -19,14 +19,14 @@ from tqdm import tqdm
 
 import torch
 from torch.utils.data import dataloader
-from TK_utils.dataloader import WellnessAutoRegressiveDataset
-from TK_utils.kogpt2 import DialogKoGPT2
+from TK_utils.T1_dataloader import WellnessAutoRegressiveDataset
+from TK_utils.T1_kogpt2 import DialogKoGPT2
 
 torch.cuda.is_available()
 
 root_path='.'
-data_path = f"{root_path}/TK_data/wellness_dialog_for_autoregressive_train.txt"
-save_ckpt_path = f"{root_path}/TK_checkpoint/kogpt2-wellnesee-auto-regressive.pth"
+data_path = f"{root_path}/TK_data/wellness_dialog_dataset/wellness_dialog_for_autoregressive_train.txt"
+save_ckpt_path = f"{root_path}/TK_checkpoint/kogpt2-T1.pth"
 
 
 
@@ -34,15 +34,19 @@ save_ckpt_path = f"{root_path}/TK_checkpoint/kogpt2-wellnesee-auto-regressive.pt
 n_epoch = 5         # Num of Epoch
 batch_size = 2      # 배치 사이즈
 ctx = "cuda" if torch.cuda.is_available() else "cpu"
-print("\n\nTK DEVICE CHECK : {}\n\n".format(ctx))
 
+print("\n\nTK DEVICE CHECK : {}\n\n".format(ctx))
+if ctx=='cpu':
+    raise Exception('NOWANT CPU')
 device = torch.device(ctx)
+
 save_step = 100 # 학습 저장 주기
 learning_rate = 5e-5  # Learning Rate
 
 
 # STEP2-2. dataset & MODEL
-dataset= WellnessAutoRegressiveDataset(data_path)
+#dataset= WellnessAutoRegressiveDataset(data_path)
+dataset= WellnessAutoRegressiveDataset()
 train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 model = DialogKoGPT2()
@@ -65,8 +69,10 @@ for epoch in range(n_epoch):
             data = data.transpose(1, 0)
             data= data.to(ctx)
 
+            #============================================REAL
             outputs = model(data, labels=data)
             _, logits = outputs[:2]
+            #============================================END
 
             # Shift so that tokens < n predict n
             shift_logits = logits[..., :-1, :].contiguous()

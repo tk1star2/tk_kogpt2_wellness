@@ -4,7 +4,7 @@ from openpyxl import Workbook, load_workbook
 # from kobert_transformers import get_tokenizer
 from kogpt2_transformers import get_kogpt2_tokenizer
 def tweet_dialog_dataset():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   tweet_file = root_path + "/tweeter_dialog_dataset.xlsx"
   tweet_file_output = root_path + "/tweeter_dialog_data.txt"
 
@@ -26,7 +26,7 @@ def tweet_dialog_dataset():
   f.close()
 
 def wellness_question_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
   wellness_q_output = root_path + "/wellness_dialog_question.txt"
 
@@ -42,7 +42,7 @@ def wellness_question_data():
   f.close()
 
 def wellness_answer_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
   wellness_a_output = root_path + "/wellness_dialog_answer.txt"
 
@@ -58,7 +58,7 @@ def wellness_answer_data():
   f.close()
 
 def category_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   data_path = root_path + "/chatbot_wellness_data.txt"
   c_output = root_path + "/chatbot_wellness_category.txt"
 
@@ -82,7 +82,7 @@ def category_data():
   i_f.close()
 
 def wellness_text_classification_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   wellness_category_file = root_path + "/wellness_dialog_category.txt"
   wellness_question_file = root_path + "/wellness_dialog_question.txt"
   wellness_text_classification_file = root_path + "/wellness_dialog_for_text_classification.txt"
@@ -112,7 +112,7 @@ def wellness_text_classification_data():
 
 
 def wellness_dialog_for_autoregressive():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
   wellness_answer_file = root_path + "/wellness_dialog_answer.txt"
   wellness_question_file = root_path + "/wellness_dialog_question.txt"
@@ -140,7 +140,7 @@ def wellness_dialog_for_autoregressive():
   autoregressive_file.close()
 
 def tweet_data_for_autoregressive():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
 
   # wellness_autoregressive_file = root_path+"/wellness_dialog_for_autoregressive.txt"
   # wellness_text_classification_file = root_path + "/wellness_dialog_for_text_classification.txt"
@@ -164,7 +164,7 @@ def tweet_data_for_autoregressive():
   tweet_file.close()
 
 def seperate_wellness_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   # wellness_autoregressive_file = root_path+"/wellness_dialog_for_autoregressive.txt"
   # wellness_text_classification_file = root_path + "/wellness_dialog_for_text_classification.txt"
   file_path = root_path + "/wellness_dialog_for_autoregressive.txt"
@@ -189,7 +189,7 @@ def seperate_wellness_data():
   test_file.close()
 
 def tweeter_autoregressive_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   tokenizer =get_kogpt2_tokenizer()
   # wellness_autoregressive_file = root_path+"/wellness_dialog_for_autoregressive.txt"
   # wellness_text_classification_file = root_path + "/wellness_dialog_for_text_classification.txt"
@@ -219,7 +219,7 @@ def tweeter_autoregressive_data():
   data_file.close()
   tweet_file.close()
 def tweeter_autoregressive_data_with_token():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
   wellness_answer_file = root_path + "/wellness_dialog_answer.txt"
   wellness_question_file = root_path + "/wellness_dialog_question.txt"
@@ -246,7 +246,7 @@ def tweeter_autoregressive_data_with_token():
   autoregressive_file.close()
 
 def merge_data():
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
 
   chatbot_file = root_path + "/chatbot_data.txt"
   wellness_file = root_path + "/wellness_dialog.txt"
@@ -271,7 +271,7 @@ def merge_data():
 
 if __name__ == "__main__":
   '''
-  root_path = "./TK_data"
+  root_path = "./TK_data/wellness_dialog_dataset"
   file_path = root_path + "/chatbot_wellness_data.txt"
   o_path = root_path + "/chatbot_wellness_data_for_autoregressive.txt"
 

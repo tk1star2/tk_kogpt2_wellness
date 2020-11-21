@@ -5,21 +5,29 @@ from torch.utils.data import Dataset # 데이터로더
 from kogpt2_transformers import get_kogpt2_tokenizer
 #from kobert_transformers import get_tokenizer
 
+import nltk
+nltk.download('vader_lexicon')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+
+def vader_polarity(text):
+    """ Transform the output to a binary 0/1 result """
+    analyser = SentimentIntensityAnalyzer()
+    score = analyser.polarity_scores(text)
+    return 1 if score['pos'] > score['neg'] else 0
+
 class WellnessAutoRegressiveDataset(Dataset):
   """Wellness Auto Regressive Dataset"""
 
-  def __init__(self,
-               file_path = "./data/wellness_dialog_for_autoregressive.txt",
-               n_ctx = 1024
-               ):
-    self.file_path = file_path
-    self.data =[]
+  def __init__(self, n_ctx = 1024):
+    self.file_path = "./TK_data/wellness_dialog_dataset/wellness_dialog_for_autoregressive_train.txt"
+    self.DATA =[]
     self.tokenizer = get_kogpt2_tokenizer()
 
+    bos_token_id = [self.tokenizer.bos_token_id] # BEGIN of string  <BOS>
+    eos_token_id = [self.tokenizer.eos_token_id] # END of string    <EOS>
+    pad_token_id = [self.tokenizer.pad_token_id] # OTHER tokens     
 
-    bos_token_id = [self.tokenizer.bos_token_id]
-    eos_token_id = [self.tokenizer.eos_token_id]
-    pad_token_id = [self.tokenizer.pad_token_id]
 
     file = open(self.file_path, 'r', encoding='utf-8')
 
@@ -28,20 +36,44 @@ class WellnessAutoRegressiveDataset(Dataset):
       if not line:
         break
       datas = line.split("    ")
-      index_of_words = bos_token_id +self.tokenizer.encode(datas[0]) + eos_token_id + bos_token_id + self.tokenizer.encode(datas[1][:-1])+ eos_token_id
-      pad_token_len = n_ctx - len(index_of_words)
 
-      index_of_words += pad_token_id * pad_token_len
+      q = datas[0]
+      q_toked = self.tokenizer.encode(q)
+      #sentiment = analyser.polarity_scores(text))
+      sentiment = vader_polarity(q)
+      if sentiment ==1 :
+        sentiment = 'g' #good
+      else : 
+        sentiment = 'b' #bad
+      sent_toked = self.tokenizer.encode(sentiment) 
+      a = datas[1]
+      a_toked = self.tokenizer.encode(a[:-1])
 
-      self.data.append(index_of_words)
+      #===========++++ Q token
+      q_toked = bos_token_id + q_toked + eos_token_id + \
+                bos_token_id + sent_toked + eos_token_id
+      q_len = len(q_toked)
+
+      #===========++++ A token
+      #a_toked = bos_token_id + sent_toked + eos_token_id + \
+      a_toked = bos_token_id + a_toked + eos_token_id
+      a_len = len(a_toked)
+
+      #check padding LEN
+      pad_token_len = n_ctx - q_len - a_len
+
+      #===========++++ Padding
+      index_of_words = q_toked + a_toked + pad_token_id * pad_token_len
+
+      self.DATA.append(index_of_words)
 
     file.close()
 
   def __len__(self):
-    return len(self.data)
+    return len(self.DATA)
 
-  def __getitem__(self,index):
-    item = self.data[index]
+  def __getitem__(self, idx):
+    item = self.DATA[idx]
     return item
 '''
 class WellnessTextClassificationDataset(Dataset):
@@ -100,6 +132,6 @@ class WellnessTextClassificationDataset(Dataset):
 '''
 if __name__ == "__main__":
   dataset = WellnessAutoRegressiveDataset()
-  dataset2 = WellnessTextClassificationDataset()
+  #dataset2 = WellnessTextClassificationDataset()
   print(dataset)
-  print(dataset2)
+  #print(dataset2)
