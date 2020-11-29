@@ -1,5 +1,8 @@
 lightning_logs/
-TK_data/Chatbot_data/
-TK_data/wellness_dialog_dataset/
+TK_data/T1_wellness/*
+TK_data/T2_chatbot_data/*
+TK_data/T3_NationalMessenger/*
+TK_data/T5_twitter/*
 TK_checkpoint/
 todo.txt
+temp.txt

@@ -1,12 +1,14 @@
 
+import argparse
 import torch
 from kogpt2.pytorch_kogpt2 import get_pytorch_kogpt2_model
 from gluonnlp.data import SentencepieceTokenizer
+from pytorch_lightning.core.lightning import LightningModule
 
 parser = argparse.ArgumentParser(description='Simsimi based on KoGPT-2')
 parser.add_argument('--model_params',
                     type=str,
-                    default='TK_checkpoint/model_last.ckpt',
+                    default='TK_checkpoint/kogpt2-T2-last.ckpt',
                     help='model binary for starting chat')
 args = parser.parse_args()
 

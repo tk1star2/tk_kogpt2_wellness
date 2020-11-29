@@ -47,7 +47,7 @@ from torch.utils.data import DataLoader
 class KoGPT2Chat(LightningModule):
     def __init__(self, args, **kwargs):
         super(KoGPT2Chat, self).__init__()
-        self.args = args
+        self.hparams = args
         self.kogpt2, self.vocab = get_pytorch_kogpt2_model()
         self.loss_function = torch.nn.CrossEntropyLoss(reduction='none')
 
@@ -79,9 +79,9 @@ class KoGPT2Chat(LightningModule):
         return torch.LongTensor(data), torch.LongTensor(mask), torch.LongTensor(label)
 
     def train_dataloader(self):
-        self.train_set = CharDataset(self.vocab, MAX_LEN=self.args.max_len)
+        self.train_set = CharDataset(self.vocab, MAX_LEN=self.hparams.max_len)
         train_dataloader = DataLoader(
-            self.train_set, batch_size=self.args.batch_size, num_workers=2,
+            self.train_set, batch_size=self.hparams.batch_size, num_workers=2,
             shuffle=True, collate_fn=self._collate_fn)
         return train_dataloader
 
@@ -95,12 +95,12 @@ class KoGPT2Chat(LightningModule):
             {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
         optimizer = AdamW(optimizer_grouped_parameters,
-                          lr=self.args.lr, correct_bias=False)
+                          lr=self.hparams.lr, correct_bias=False)
         # warm up lr
-        print("\n\n\n\nSO WHAT?!?!?!?!! {}\n\n\n\n".format(self.args.max_epochs))
+        print("\n\n\n\nSO WHAT?!?!?!?!! {}\n\n\n\n".format(self.hparams.max_epochs))
 
-        num_train_steps = len(self.train_dataloader()) * self.args.max_epochs
-        num_warmup_steps = int(num_train_steps * self.args.warmup_ratio)
+        num_train_steps = len(self.train_dataloader()) * self.hparams.max_epochs
+        num_warmup_steps = int(num_train_steps * self.hparams.warmup_ratio)
         scheduler = get_cosine_schedule_with_warmup(
             optimizer,
             num_warmup_steps=num_warmup_steps, num_training_steps=num_train_steps)
