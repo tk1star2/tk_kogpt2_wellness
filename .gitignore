@@ -1,7 +1,8 @@
 lightning_logs/
 TK_data/T1_wellness/*
 TK_data/T2_chatbot_data/*
-TK_data/T3_NationalMessenger/*
+TK_data/T3_national/*
+TK_data/T4_KETI/*
 TK_data/T5_twitter/*
 TK_checkpoint/
 todo.txt
