@@ -24,7 +24,7 @@ def D1_tweet_dialog_dataset():
 
   f.close()
 
-def tweet_data_for_autoregressive():
+def D2_tweet_data_for_autoregressive():
   root_path = "./TK_data/T5_twitter"
 
   file_path = root_path + "/T5_tweeter.txt"
@@ -139,7 +139,7 @@ if __name__ == "__main__":
   '''
   
   D1_tweet_dialog_dataset()
-  tweet_data_for_autoregressive()
+  D2_tweet_data_for_autoregressive()
 
   #wellness_answer_data()
   #wellness_question_data()

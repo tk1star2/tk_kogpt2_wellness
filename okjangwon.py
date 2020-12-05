@@ -91,8 +91,18 @@ from sklearn.model_selection import train_test_split
 train,test=train_test_split(dataset,test_size=0.2)
 
 from torch.utils.data import DataLoader, TensorDataset
-train_dataset=TensorDataset(torch.LongTensor(train.input_id.values.tolist()),torch.LongTensor(train.attention_mask.values.tolist()),torch.LongTensor(train.token_id.values.tolist()),torch.LongTensor(train.cls_position.values.tolist()),torch.LongTensor(train.lm_label.values.tolist()),torch.LongTensor(train.label.values.tolist()))
-test_dataset=TensorDataset(torch.LongTensor(test.input_id.values.tolist()),torch.LongTensor(test.attention_mask.values.tolist()),torch.LongTensor(test.token_id.values.tolist()),torch.LongTensor(test.cls_position.values.tolist()),torch.LongTensor(test.lm_label.values.tolist()),torch.LongTensor(test.label.values.tolist()))
+train_dataset=TensorDataset(torch.LongTensor(train.input_id.values.tolist()), \
+                            torch.LongTensor(train.attention_mask.values.tolist()), \
+                            torch.LongTensor(train.token_id.values.tolist()), \
+                            torch.LongTensor(train.cls_position.values.tolist()), \
+                            torch.LongTensor(train.lm_label.values.tolist()),\
+                            torch.LongTensor(train.label.values.tolist()))
+test_dataset=TensorDataset( torch.LongTensor(test.input_id.values.tolist()),\
+                            torch.LongTensor(test.attention_mask.values.tolist()), \
+                            torch.LongTensor(test.token_id.values.tolist()), \
+                            torch.LongTensor(test.cls_position.values.tolist()), \
+                            torch.LongTensor(test.lm_label.values.tolist()), \
+                            torch.LongTensor(test.label.values.tolist()))
 
 # train loader, test loader
 train_loader=DataLoader(train_dataset,batch_size=2,drop_last=True)

@@ -5,7 +5,7 @@ from openpyxl import Workbook, load_workbook
 def D1_wellness_answer_data():
   root_path = "./TK_data/T1_wellness"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
-  wellness_a_output = root_path + "/wellness_dialog_answer.txt"
+  wellness_a_output = root_path + "/T1D1_wellness_dialog_answer.txt"
 
   f = open(wellness_a_output, 'w')
   wb = load_workbook(filename=wellness_file)
@@ -20,7 +20,7 @@ def D1_wellness_answer_data():
 def D2_wellness_question_data():
   root_path = "./TK_data/T1_wellness"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
-  wellness_q_output = root_path + "/wellness_dialog_question.txt"
+  wellness_q_output = root_path + "/T1D2_wellness_dialog_question.txt"
 
   f = open(wellness_q_output, 'w')
 
@@ -40,9 +40,9 @@ def D2_wellness_question_data():
 def D3_wellness_dialog_for_autoregressive():
   root_path = "./TK_data/T1_wellness"
   wellness_file = root_path + "/wellness_dialog_dataset.xlsx"
-  wellness_answer_file = root_path + "/wellness_dialog_answer.txt"
-  wellness_question_file = root_path + "/wellness_dialog_question.txt"
-  wellness_autoregressive_file = root_path + "/D3_wellness_dialog_for_autoregressive.txt"
+  wellness_answer_file = root_path + "/T1D1_wellness_dialog_answer.txt"
+  wellness_question_file = root_path + "/T1D2_wellness_dialog_question.txt"
+  wellness_autoregressive_file = root_path + "/T1D3_wellness_dialog_for_autoregressive.txt"
 
 
   answ_file = open(wellness_answer_file, 'r')
@@ -70,7 +70,7 @@ def D4_seperate_wellness_data():
   root_path = "./TK_data/T1_wellness"
   # wellness_autoregressive_file = root_path+"/wellness_dialog_for_autoregressive.txt"
   # wellness_text_classification_file = root_path + "/wellness_dialog_for_text_classification.txt"
-  file_path = root_path + "/D3_wellness_dialog_for_autoregressive.txt"
+  file_path = root_path + "/T1D3_wellness_dialog_for_autoregressive.txt"
   train_file_path = root_path + "/T1_wellness_train.txt"
   test_file_path = root_path + "/T1_wellness_test.txt"
 
